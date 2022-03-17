@@ -4,4 +4,20 @@
 
 {% block body %}
 
+
+<section class="container m-5">
+    <div class="row">
+        {% for article in articles %}
+            <div class="card col-md-3 m-2" style="width: 18rem;">
+            <img src="{{article.photo}}">
+            <div class="card-body">
+              <h5 class="card-title">{{article.titre}}</h5>
+              <p class="card-text">{{article.description}}</p>
+              <a href="#" class="btn btn-primary">{{article.auteur}}</a><br>
+              <span>{{article.publication | date('d-M-y')}}</span>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+</section>
 {% endblock %}
