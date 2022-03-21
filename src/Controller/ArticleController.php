@@ -24,14 +24,37 @@ class ArticleController extends AbstractController
            $form->handleRequest($request); // Traitement du formulaire
            if($form->isSubmitted() && $form->isValid()){ 
                $this->manager->persist($article);
-              $this->manager->flush();
-           
+               $this->manager->flush();
+               return $this->redirectToRoute('app_home');
            };
-               
-
-
+            
         return $this->render('article/index.html.twig', [
             'formArticle' => $form->createView(),
         ]);
+    }
+
+
+
+    #[Route('/article/delete/{id}', name: 'app_article_delete')]
+    public function articleDelete(Article $article): Response
+    {
+        $this->manager->remove($article);
+        $this->manager->flush();
+        return $this->redirectToRoute('app_home');
+
+    }
+
+
+
+    #[Route('/article/edit/{id}', name: 'app_article_edit')]
+    public function articleEdit(Article $article): Response
+    {
+        
+
+
+
+        
+        return $this->redirectToRoute('app_home');
+
     }
 }
