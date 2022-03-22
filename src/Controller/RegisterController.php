@@ -25,14 +25,11 @@ class RegisterController extends AbstractController
          $form = $this->createForm(RegisterType::class, $user);// Création du formulaire
          $form->handleRequest($request);// Traitement du formulaire
          if($form->isSubmitted() && $form->isValid()) { //Si le formulaire et soumis et valide alor..
-
-                    
-
+      
                 $this->manager->persist($user);// On persiste l'utilisateur
                 $this->manager->flush();// On flush      
          }
 
-    
         return $this->render('register/index.html.twig', [
            'myForm' => $form->createView() // On passe le formulaire à la vue
         ]);
