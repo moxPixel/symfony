@@ -16,13 +16,17 @@ class ArticleController extends AbstractController
        $this->manager = $manager;
  }
 
-    #[Route('/article', name: 'app_article')]
+    #[Route('/admin/article', name: 'app_article')]
     public function index(Request $request): Response
     {
            $article = new Article(); // Nouvelle instance de article
            $form = $this->createForm(ArticleType::class,$article); // Création du formulaire
            $form->handleRequest($request); // Traitement du formulaire
            if($form->isSubmitted() && $form->isValid()){ 
+// recuperer l'utilisateur connecter et envoyer le prenom dans le setAuteur.
+
+                 $article->setAuteur($this->getUser()->getPrenom());
+
                $this->manager->persist($article);
                $this->manager->flush();
                return $this->redirectToRoute('app_home');
@@ -35,7 +39,7 @@ class ArticleController extends AbstractController
 
 
 
-    #[Route('/article/delete/{id}', name: 'app_article_delete')]
+    #[Route('/admin/article/delete/{id}', name: 'app_article_delete')]
     public function articleDelete(Article $article): Response
     {
         $this->manager->remove($article);
@@ -46,7 +50,7 @@ class ArticleController extends AbstractController
 
 
 
-    #[Route('/article/edit/{id}', name: 'app_article_edit')]
+    #[Route('/admin/article/edit/{id}', name: 'app_article_edit')]
     public function articleEdit(Article $article,Request $request): Response
     {
           $form = $this->createForm(ArticleType::class,$article); // Création du formulaire
