@@ -19,7 +19,9 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('email',EmailType::class)
-            ->add('password',PasswordType::class)
+            ->add('password',PasswordType::class,[
+                'mapped'=>false
+            ])
             ->add('nom',TextType::class)
             ->add('prenom',TextType::class)
             ->add('datedeNaissance',BirthdayType::class)

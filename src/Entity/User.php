@@ -45,6 +45,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $prenom;
 
+
+    private $nomComplet;
     /**
      * @ORM\Column(type="datetime")
      */
@@ -155,6 +157,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->prenom;
     }
+
+    public function getNomComplet(): ?string
+    {
+        return $this->getNom(). ' ' . $this->getPrenom();
+    }
+
+
 
     public function setPrenom(string $prenom): self
     {

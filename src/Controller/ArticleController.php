@@ -23,9 +23,9 @@ class ArticleController extends AbstractController
            $form = $this->createForm(ArticleType::class,$article); // Création du formulaire
            $form->handleRequest($request); // Traitement du formulaire
            if($form->isSubmitted() && $form->isValid()){ 
-// recuperer l'utilisateur connecter et envoyer le prenom dans le setAuteur.
-
-                 $article->setAuteur($this->getUser()->getPrenom());
+      // recuperer l'utilisateur connecter et envoyer le prenom dans le setAuteur.
+             
+                 $article->setAuteur($this->getUser()->getNomComplet());
 
                $this->manager->persist($article);
                $this->manager->flush();
