@@ -28,7 +28,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/admin/user/edit/{id}', name: 'app_user_edit')]
+    #[Route('/user/edit/{id}', name: 'app_user_edit')]
     public function userEdit(User $user,Request $request): Response
     {
           $form = $this->createForm(RegisterType::class,$user); // Création du formulaire
@@ -39,8 +39,6 @@ class UserController extends AbstractController
             if($emptyPassword == null){
              $user->setPassword($user->getPassword());
             }
-
-
                $this->manager->persist($user);
                $this->manager->flush();
                return $this->redirectToRoute('app_user');

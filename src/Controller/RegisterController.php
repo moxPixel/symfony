@@ -27,11 +27,19 @@ class RegisterController extends AbstractController
          $form = $this->createForm(RegisterType::class, $user);// Création du formulaire
          $form->handleRequest($request);// Traitement du formulaire
          if($form->isSubmitted() && $form->isValid()) { //Si le formulaire et soumis et valide alor..
-                   $passwordEncod =  $this->passwordHash->hashPassword($user ,$user->getPassword());
-                   $user->setPassword($passwordEncod);
+            $emptyPassword = $form->get('password')->getData();
+    
+            if($emptyPassword == null){
+             $user->setPassword($user->getPassword());
+            }else{
+               $passwordEncod =  $this->passwordHash->hashPassword($user , $emptyPassword);
+               $user->setPassword($passwordEncod);
+            }
+
 
                 $this->manager->persist($user);// On persiste l'utilisateur
-                $this->manager->flush();// On flush      
+                $this->manager->flush();// On flush     
+                return $this->redirectToRoute('app_login');
          }
 
         return $this->render('register/index.html.twig', [

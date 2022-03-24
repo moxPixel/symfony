@@ -16,6 +16,21 @@ class ArticleController extends AbstractController
        $this->manager = $manager;
  }
 
+
+    /**
+     * @Route("/admin/all/article", name="app_all_article")
+     */
+    public function allArtice(): Response
+    {
+         $articles = $this->manager->getRepository(Article::class)->findAll();
+        // logique stocker dans une variable avec tout les articles
+
+        return $this->render('article/allArticle.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+
     #[Route('/admin/article', name: 'app_article')]
     public function index(Request $request): Response
     {
